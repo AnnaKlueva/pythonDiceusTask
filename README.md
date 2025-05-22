@@ -47,7 +47,7 @@ Run tests across several CPU cores (`pytest -n <num_workers>`): </br>
 
 NOTE:
 1. Test report can be found in github pages:
-`https://annaklueva.github.io/pythonDiceusTask`
+[https://annaklueva.github.io/pythonDiceusTask](https://annaklueva.github.io/pythonDiceusTask)
 Note: 
 Tests are passed locally, but nnot all of them passed remotely(due lack of time I didn't fix flakines and changing of window size)
 
