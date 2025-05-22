@@ -1,0 +1,5 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Thu May 22 05:40:21 UTC 2025","Thu May 22 05:40:27 UTC 2025","5723","","","","","","test_home_page_is_loading",""
+"passed","Thu May 22 06:17:39 UTC 2025","Thu May 22 06:17:56 UTC 2025","16868","test","test_navigation","TestInsider","","","test_home_page_is_loading",""
+"broken","Thu May 22 06:17:56 UTC 2025","Thu May 22 06:18:13 UTC 2025","16559","test","test_navigation","TestInsider","","","test_navigation_to_careers_page",""
+"broken","Thu May 22 06:18:14 UTC 2025","Thu May 22 06:18:15 UTC 2025","1804","test","test_navigation","TestInsider","","","test_filter_by_qa",""
