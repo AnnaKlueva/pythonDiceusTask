@@ -1,0 +1,63 @@
+name: Run Tests with Allure Report and Deploy to GitHub Pages
+
+on:
+  workflow_dispatch:
+    inputs:
+      driver:
+        description: 'Browser driver to use (chrome or firefox)'
+        required: true
+        default: 'chrome'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Install Google Chrome
+      if: ${{ github.event.inputs.driver == 'chrome' }}
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget gnupg
+        wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+        echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
+
+    - name: Install Firefox
+      if: ${{ github.event.inputs.driver == 'firefox' }}
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y firefox
+
+    - name: Run tests with Allure
+      run: |
+        pytest --driver=${{ github.event.inputs.driver }} --alluredir=allure-results
+
+    - name: Generate Allure Report using Docker
+      run: |
+        docker run --rm \
+          -v ${{ github.workspace }}/allure-results:/app/allure-results \
+          -v ${{ github.workspace }}/allure-report:/app/allure-report \
+          frankescobar/allure-docker-service \
+          generate
+
+    - name: Deploy Allure Report to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./allure-report
+        publish_branch: gh-pages
+        force_orphan: true
