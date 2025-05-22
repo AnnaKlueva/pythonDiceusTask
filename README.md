@@ -1,7 +1,8 @@
 ## Test task
 
 ## How to start
-### Run locally:
+
+## Run locally:
 
 Use python 3.8 + Create and activate virtual environments
 
@@ -35,10 +36,15 @@ if `--driver` parameter is not mentioned, the Chrome driver is used by default
 Run tests across several CPU cores (`pytest -n <num_workers>`): </br>
 `pytest -n 2 --alluredir=allure-results`
 
-
-
 </br>To see report run:
 `allure serve allure-results`
+
+
+## Run throw GitHub pipeline:
+* Navigate to 'Actions'
+* Select workflow 'Run Tests with Allure report ...'
+* Select browser. Possible options: chrome or firefox
+
 
 
 ## 🧪 UI Automation Task Description

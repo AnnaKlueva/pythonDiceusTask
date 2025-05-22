@@ -43,10 +43,12 @@ jobs:
         sudo apt-get install -y firefox
 
     - name: Run tests with Allure
+      continue-on-error: true
       run: |
         pytest --driver=${{ github.event.inputs.driver }} --alluredir=allure-results
 
     - name: Generate Allure Report using Docker
+      if: always()
       run: |
         docker run --rm \
           -v ${{ github.workspace }}/allure-results:/app/allure-results \
@@ -55,6 +57,7 @@ jobs:
           generate
 
     - name: Deploy Allure Report to GitHub Pages
+      if: always()
       uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
